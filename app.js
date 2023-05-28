@@ -1,15 +1,21 @@
-// Simple Express web server.
-// @see http://howtonode.org/getting-started-with-express
+const http = require('http');
+const os = require('os');
 
-// Load the express module.
-var express = require('express');
-var app = express();
+console.log("Maina's server starting...");
 
-// Respond to requests for / with 'Hello from Zaquir Maina DevOps'.
-app.get('/', function(req, res){
-    res.send('Hello Zaquir Maina DevOps!!');
-});
+var requestCount = 0;
 
-// Listen on port 80 (like a true web server).
-app.listen(80);
-console.log('Express server started successfully.');
+var handler = function(request, response){
+    console.log("Received request from" + request.connection.remoteAddress);
+    requestCount++;
+    if (requestCount > 5) {
+        response.writeHead(500);
+        response.end("Maina's server ain't working!! This is server number six");
+        return;
+    }
+    response.writeHead(200);
+    response.end("Maina's server ain't okay keep debuggng" + os.hostname() + "\n");
+};
+
+var www = http.createServer(handler);
+www.listen(8080);
