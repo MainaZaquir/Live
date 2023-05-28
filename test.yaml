@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Pod
 metadata:
- name: k8stest-Live
+ name: Live
 spec:
  containers:
- - image: figent/k8stest-boomer
-   name: moringak8s
+ - image: figent/Live
+   name: moringak8
    livenessProbe:
      httpGet:
        path: /
        port: 8080
-     initialDelaySeconds: 15
+     initialDelaySeconds: 20
